@@ -1,0 +1,42 @@
+@(error: String)(personForm: Form[Person])
+@import helper._
+
+@main("Welcome to Play") {
+	<script type='text/javascript' src='@routes.Assets.at("javascripts/index.js")'></script>
+ 
+	<ul id="persons"></ul>
+	
+	
+
+	@helper.form(action = routes.Application.addPerson()) {
+		@if(personForm.hasGlobalErrors) {
+			<p class="error">
+				@personForm.globalError.message
+			</p>
+		}
+		@inputText(
+			personForm("name"),
+			'placeholder -> "Name",
+			'_label -> null,
+			'_help -> "Name",			
+			'class -> "form-control"
+		)
+		<input type="submit" class="btn btn-primary" value="Add Person">
+	}
+	@helper.form(action = routes.Application.deletePerson()) {
+		@if(personForm.hasGlobalErrors) {
+			<p class="error">
+				@personForm.globalError.message
+			</p>
+		}
+		@inputText(
+			personForm("name"),
+			'placeholder -> "Name",
+			'_label -> null,
+			'_help -> "Name",
+			'class -> "form-control"
+		)
+		<input type="submit" class="btn btn-primary" value="Delete Person">
+	}
+	<div style="border-color:red;border-style:solid;height:50px">@error</div>
+}
